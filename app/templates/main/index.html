@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="hero">
+    <h1>Welcome to the Meeting Cost Calculator</h1>
+    <p>Optimize your meetings by calculating the exact cost and time spent. Our tool helps you manage and reduce unnecessary meetings, saving valuable resources.</p>
+    <div class="hero-image">
+        <img src="{{ url_for('static', filename='images/meeting.png') }}" alt="People in a meeting">
+    </div>
+</section>
+
+<section class="features">
+    <div class="feature">
+        <div class="feature-icon">💰</div>
+        <h2>Calculate Meeting Costs</h2>
+        <p>Quickly calculate the monetary cost of meetings based on attendees' hourly rates and duration.</p>
+    </div>
+    <div class="feature">
+        <div class="feature-icon">⏱️</div>
+        <h2>Track Time Spent</h2>
+        <p>Keep track of the time spent in meetings to optimize your team's productivity.</p>
+    </div>
+    <div class="feature">
+        <div class="feature-icon">📊</div>
+        <h2>Generate Reports</h2>
+        <p>Export meeting cost reports in various formats for analysis and presentation.</p>
+    </div>
+</section>
+
+<section class="cta">
+    <h2>Ready to Optimize Your Meetings?</h2>
+    <p>Start using our calculator today and make your meetings more efficient.</p>
+    <a href="{{ url_for('calculator.index') }}" class="button">Get Started</a>
+</section>
+{% endblock %}

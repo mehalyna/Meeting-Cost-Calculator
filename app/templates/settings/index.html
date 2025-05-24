@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="settings">
+    <h1>Settings</h1>
+    
+    <div class="settings-container">
+        <form id="settings-form" method="post" action="{{ url_for('settings.index') }}">
+            <div class="settings-section">
+                <h2>Currency Settings</h2>
+                <div class="form-group">
+                    <label for="currency">Select Currency</label>
+                    <select id="currency" name="currency">
+                        <option value="USD" {% if session.get('currency') == 'USD' %}selected{% endif %}>USD - US Dollar</option>
+                        <option value="EUR" {% if session.get('currency') == 'EUR' %}selected{% endif %}>EUR - Euro</option>
+                        <option value="GBP" {% if session.get('currency') == 'GBP' %}selected{% endif %}>GBP - British Pound</option>
+                        <option value="CAD" {% if session.get('currency') == 'CAD' %}selected{% endif %}>CAD - Canadian Dollar</option>
+                        <option value="AUD" {% if session.get('currency') == 'AUD' %}selected{% endif %}>AUD - Australian Dollar</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="settings-section">
+                <h2>Preferences</h2>
+                <div class="form-group checkbox-group">
+                    <label for="dark-mode" class="checkbox-label">
+                        <input type="checkbox" id="dark-mode" name="dark_mode" {% if session.get('theme') == 'dark' %}checked{% endif %}>
+                        <span>Dark Mode</span>
+                    </label>
+                    <p class="form-help">Enable dark mode for reduced eye strain in low-light environments</p>
+                </div>
+            </div>
+            
+            <div class="form-actions">
+                <button type="submit" class="button primary">Save Settings</button>
+                <a href="{{ url_for('main.index') }}" class="button secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const darkModeToggle = document.getElementById('dark-mode');
+        
+        darkModeToggle.addEventListener('change', function() {
+            // Visual feedback only - actual theme change happens on form submit
+            if(this.checked) {
+                document.body.classList.add('dark-mode-preview');
+            } else {
+                document.body.classList.remove('dark-mode-preview');
+            }
+        });
+    });
+</script>
+{% endblock %}

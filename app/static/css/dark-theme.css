@@ -1,0 +1,92 @@
+/* Dark theme styles */
+:root {
+    --primary-color: #bb86fc;
+    --primary-dark: #9a67ea;
+    --secondary-color: #03dac6;
+    --text-color: #e0e0e0;
+    --light-bg: #121212;
+    --white: #1e1e1e;
+    --gray: #b0b0b0;
+    --light-gray: #333333;
+    --error: #cf6679;
+}
+
+body {
+    background-color: var(--light-bg);
+    color: var(--text-color);
+}
+
+header, footer {
+    background-color: #1a1a1a;
+}
+
+.logo a {
+    color: var(--primary-color);
+}
+
+nav ul li a {
+    color: var(--text-color);
+}
+
+nav ul li a:hover {
+    color: var(--primary-color);
+}
+
+.calculator-container, 
+.settings-container,
+.result,
+.feature,
+.cta {
+    background-color: var(--white);
+    color: var(--text-color);
+}
+
+input, select, textarea {
+    background-color: #2a2a2a;
+    color: var(--text-color);
+    border-color: #444;
+}
+
+.button.secondary {
+    background-color: #444;
+    color: var(--text-color);
+}
+
+.button.secondary:hover {
+    background-color: #555;
+}
+
+.cost-display .amount {
+    color: var(--primary-color);
+}
+
+/* Alerts in dark mode */
+.alert-success {
+    background-color: #1e4620;
+    color: #b4d9b4;
+}
+
+.alert-error {
+    background-color: #441a1d;
+    color: #f5c6cb;
+}
+
+/* Dark mode preview class for settings page toggle */
+body.dark-mode-preview {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+body.dark-mode-preview header,
+body.dark-mode-preview footer {
+    background-color: #1a1a1a;
+}
+
+body.dark-mode-preview .calculator-container,
+body.dark-mode-preview .settings-container,
+body.dark-mode-preview .result,
+body.dark-mode-preview .feature,
+body.dark-mode-preview .cta {
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+}

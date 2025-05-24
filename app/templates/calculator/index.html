@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="calculator">
+    <div class="calculator-container">
+        <h1>Calculate Meeting Cost</h1>
+        
+        <form id="meeting-form">
+            <div class="form-group">
+                <label for="meeting-title">Meeting Title</label>
+                <input type="text" id="meeting-title" name="title" placeholder="Weekly team update" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="meeting-duration">Meeting Duration (minutes)</label>
+                <input type="number" id="meeting-duration" name="duration" min="1" value="60" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="meeting-participants">Number of Participants</label>
+                <input type="number" id="meeting-participants" name="participants" min="1" value="5" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="hourly-rate">Average Hourly Rate ({{ session.get('currency', 'USD') }})</label>
+                <input type="number" id="hourly-rate" name="hourly_rate" min="0" step="0.01" value="50" required>
+            </div>
+            
+            <div class="form-actions">
+                <button type="submit" class="button primary">Calculate</button>
+                <button type="reset" class="button secondary">Reset</button>
+            </div>
+        </form>
+    </div>
+    
+    <div id="result" class="result hidden">
+        <h2>Meeting Cost Summary</h2>
+        <div class="cost-display">
+            <span class="currency">{{ session.get('currency', '$') }}</span>
+            <span id="total-cost" class="amount">0.00</span>
+        </div>
+        
+        <div class="summary">
+            <p><strong>Meeting:</strong> <span id="summary-title"></span></p>
+            <p><strong>Duration:</strong> <span id="summary-duration"></span> minutes</p>
+            <p><strong>Participants:</strong> <span id="summary-participants"></span></p>
+        </div>
+        
+        <div class="export-options">
+            <h3>Export Options</h3>
+            <button id="export-pdf" class="button secondary">Export as PDF</button>
+            <button id="export-csv" class="button secondary">Export as CSV</button>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const meetingForm = document.getElementById('meeting-form');
+        const resultDiv = document.getElementById('result');
+        const totalCostSpan = document.getElementById('total-cost');
+        const summaryTitle = document.getElementById('summary-title');
+        const summaryDuration = document.getElementById('summary-duration');
+        const summaryParticipants = document.getElementById('summary-participants');
+        
+        meetingForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(meetingForm);
+            
+            fetch('{{ url_for("calculator.calculate") }}', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                totalCostSpan.textContent = data.total_cost.toFixed(2);
+                summaryTitle.textContent = formData.get('title');
+                summaryDuration.textContent = data.duration;
+                summaryParticipants.textContent = data.participants;
+                
+                resultDiv.classList.remove('hidden');
+                
+                // Scroll to result
+                resultDiv.scrollIntoView({ behavior: 'smooth' });
+            })
+            .catch(error => {
+                console.error('Error calculating meeting cost:', error);
+                alert('An error occurred while calculating the meeting cost. Please try again.');
+            });
+        });
+        
+        // Export functions (placeholders)
+        document.getElementById('export-pdf').addEventListener('click', function() {
+            alert('PDF export functionality coming soon!');
+        });
+        
+        document.getElementById('export-csv').addEventListener('click', function() {
+            alert('CSV export functionality coming soon!');
+        });
+    });
+</script>
+{% endblock %}
