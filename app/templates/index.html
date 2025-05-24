@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Meeting Cost Calculator</h1>
+        <div class="calculator-form">
+            <form id="meeting-form">
+                <div class="form-group">
+                    <label for="meeting-title">Meeting Title</label>
+                    <input type="text" id="meeting-title" name="meeting-title" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="meeting-duration">Duration (minutes)</label>
+                    <input type="number" id="meeting-duration" name="meeting-duration" min="1" required>
+                </div>
+                
+                <div id="attendees-list">
+                    <h2>Attendees</h2>
+                    <div class="attendee-row">
+                        <input type="text" name="attendee-name[]" placeholder="Name" required>
+                        <input type="number" name="attendee-rate[]" placeholder="Hourly rate" min="0" step="0.01" required>
+                        <button type="button" class="remove-attendee">Remove</button>
+                    </div>
+                </div>
+                
+                <button type="button" id="add-attendee">Add Attendee</button>
+                <button type="submit">Calculate Cost</button>
+            </form>
+        </div>
+        
+        <div id="result" class="hidden">
+            <h2>Meeting Cost</h2>
+            <p>Total cost: <span id="total-cost">$0.00</span></p>
+        </div>
+    </div>
+    
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
